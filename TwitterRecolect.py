@@ -17,7 +17,7 @@ api = tweepy.API(auth)
 
 #Clase recolectora de datos de Twitter.
 class MyListener(tweepy.StreamListener):
-    def __init__(self, time_limit=120):
+    def __init__(self, time_limit=20):
         self.start_time = time.time()
         self.limit = time_limit
         self.saveFile = open('abcd.json', 'a')

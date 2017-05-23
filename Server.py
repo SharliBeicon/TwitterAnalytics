@@ -2,6 +2,7 @@
 #Bibliotecas necesarias.
 import time
 import zmq
+import json
 
 import TwitterRecolect
 from TwitterRecolect import *
@@ -25,3 +26,13 @@ while True:
 print "[*] Hashtag captado"
 twitter_stream = Stream(auth, MyListener())
 twitter_stream.filter(track = [message])
+
+#Procesamiento de campos del json
+f = open('abcd.json', 'r')
+for line in f:
+    try:
+        tweet = json.loads(line) # load it as Python dict
+        print(tweet['id'])
+    except (ValueError, KeyError) as e:
+        continue
+f.close()
