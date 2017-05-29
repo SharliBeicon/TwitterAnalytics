@@ -1,6 +1,8 @@
 import time
 import tweepy
 import json
+import DropboxUpload
+from DropboxUpload import *
 from tweepy import OAuthHandler
 from tweepy import Stream
 from tweepy.streaming import StreamListener
@@ -42,9 +44,10 @@ def procesarTweets(archivo):
         except:
             continue
 
-    with open('geo_data.json', 'w') as fout:
+    with open('subidas/geo_data_'+archivo[1:len(archivo)], 'w') as fout:
         fout.write(json.dumps(geo_data, indent=4))
         f.close()
+    MyDropbox().upload('subidas/geo_data_'+archivo[1:len(archivo)])
 #Clase recolectora de datos de Twitter.
 class MyListener(tweepy.StreamListener):
     def __init__(self, archivo, time_limit):

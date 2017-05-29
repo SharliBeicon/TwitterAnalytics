@@ -1,5 +1,7 @@
-import web
+from web import cargarweb
 import tasks
+import DropboxUpload
+from DropboxUpload import *
 from bottle import *
 from json import dumps
 
@@ -23,7 +25,9 @@ def do_operacion():
     tuits = result2.get()
 
     if result2.successful():
-        return cargarweb()
+        jsonLocalizacion = 'geo_data_'+hashtag[1:len(hashtag)]+'.json'
+        MyDropbox().downloadLocation(jsonLocalizacion, '/subidas/'+jsonLocalizacion)
+        return cargarweb(jsonLocalizacion)
     else:
         print ("<p>[*] La shet</p>")
 

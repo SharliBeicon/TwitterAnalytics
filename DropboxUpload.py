@@ -13,3 +13,6 @@ class MyDropbox():
 
     def download(self, archivo, ruta):
         dbx.files_download_to_file('descargas/'+archivo, ruta)
+
+    def downloadLocation(self, archivo, ruta):
+        dbx.files_download_to_file(archivo, ruta)
