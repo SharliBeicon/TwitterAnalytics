@@ -16,33 +16,38 @@ auth.set_access_token(access_token, access_secret)
 
 api = tweepy.API(auth)
 def procesarTweets(archivo):
-    f = open('descargas/'+archivo)
+    f = open('descargas/' + archivo)
     geo_data = {
         "type": "FeatureCollection",
         "features": []
     }
     for line in f:
         try:
+            localizacion = []
             tweet = json.loads(line) # load it as Python dict
-            if tweet['coordinates']:
-                geo_json_feature = {
-                    "type": "Feature",
-                    "geometry": tweet['coordinates'],
-                    "properties": {
-                        "text": tweet['text'],
-                        "created_at": tweet['created_at']
-                    }
+            localizacion.append(tweet['place']['bounding_box']['coordinates'][0][0][0])
+            localizacion.append(tweet['place']['bounding_box']['coordinates'][0][0][1])
+            geo_json_feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": localizacion
+                },
+                "properties": {
+                    "text": tweet['text'],
+                    "created_at": tweet['created_at']
                 }
-                geo_data['features'].append(geo_json_feature)
-        except (ValueError, KeyError) as e:
+            }
+            geo_data['features'].append(geo_json_feature)
+        except:
             continue
+
     with open('geo_data.json', 'w') as fout:
         fout.write(json.dumps(geo_data, indent=4))
-    f.close()
-
+        f.close()
 #Clase recolectora de datos de Twitter.
 class MyListener(tweepy.StreamListener):
-    def __init__(self, archivo, time_limit=60):
+    def __init__(self, archivo, time_limit):
         self.start_time = time.time()
         self.limit = time_limit
         self.saveFile = open(archivo, 'a')
