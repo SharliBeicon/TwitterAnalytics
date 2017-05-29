@@ -5,16 +5,40 @@ from DropboxUpload import *
 from bottle import *
 from json import dumps
 
+@get('/<filename>')
+def stylesheets(filename):
+    return static_file(filename, root='estilo/')
+
 @get('/hashtag')
 def operacion():
     return '''
-        <form action = "/hashtag" method="post">
-            Hashtag: <input name = "hashtag" type = "text" />
-            Tiempo (en segundos): <input name = "tiempo" type = "text" />
-            <input value = "enviar" type = "submit" />
-        </form>
+	<!DOCTYPE html>
+	<html lang="es">
+	    <head>
+	        <meta charset="utf-8" />
+	        <title>Twitter Analylics</title>
+	        <link rel="stylesheet" href="estilo.css" type="text/css"/>
+	        <script>
+				function enviar_formulario(){
+   					document.form.submit()
+				}
+			</script>
+	    </head>
+	    <body>
+	    <img id = "titulo" src="titulo.png"  style="position:relative; left: 23%; width: 50%; height: 50%;" >
+		    <form name = "form" action = "/hashtag" method="post" style="position: absolute; left: 28%; top: 60%">
+	            Hashtag: <input id = "hastag" name = "hashtag" type = "text" />
+	            Tiempo (en segundos):   <input id = "tiempo" name = "tiempo" type = "text" />
+	            <a class="myButton" href="javascript:enviar_formulario()" >E N V I A R</a>
+        	</form>
+	    </body>
+	</html>
     '''
 
+@get('/<filename>')
+def stylesheets(filename):
+    return static_file(filename, root='./')
+    
 @post('/hashtag')
 def do_operacion():
     hashtag = request.forms.get("hashtag")
@@ -27,6 +51,7 @@ def do_operacion():
     if result2.successful():
         jsonLocalizacion = 'geo_data_'+hashtag[1:len(hashtag)]+'.json'
         MyDropbox().downloadLocation(jsonLocalizacion, '/subidas/'+jsonLocalizacion)
+
         return cargarweb(jsonLocalizacion)
     else:
         print ("<p>[*] La shet</p>")
