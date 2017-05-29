@@ -6,7 +6,7 @@ import DropboxUpload
 from DropboxUpload import *
 from TwitterRecolect import *
 
-app = Celery("tasks", backend="rpc://", broker="pyamqp://sdproject:sdproject@127.0.0.1//")
+app = Celery("tasks", backend="rpc://", broker="pyamqp://sdproject:sdproject@10.182.122.248//")
 
 @app.task(no_ack=True)
 def hashtag(mensaje, tiempo):
