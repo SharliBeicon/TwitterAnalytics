@@ -5,9 +5,21 @@ from DropboxUpload import *
 from bottle import *
 from json import dumps
 
-@get('/<filename>')
-def stylesheets(filename):
-    return static_file(filename, root='estilo/')
+@get("<filepath:re:.*\.css>")
+def css(filepath):
+    return static_file(filepath, root="estilo/")
+
+@get("<filepath:re:.*\.(eot|otf|svg|ttf|woff|woff2?)>")
+def font(filepath):
+    return static_file(filepath, root="./")
+
+@get("<filepath:re:.*\.(jpg|png|gif|ico|svg)>")
+def img(filepath):
+    return static_file(filepath, root="estilo/")
+
+@get("<filepath:re:.*\.json>")
+def json(filepath):
+    return static_file(filepath, root="./")
 
 @get('/hashtag')
 def operacion():
@@ -38,7 +50,7 @@ def operacion():
 @get('/<filename>')
 def stylesheets(filename):
     return static_file(filename, root='./')
-    
+
 @post('/hashtag')
 def do_operacion():
     hashtag = request.forms.get("hashtag")
