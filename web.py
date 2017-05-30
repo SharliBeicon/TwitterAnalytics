@@ -1,4 +1,4 @@
-def cargarweb(jsonLocalizacion):
+def cargarwebmapa(jsonLocalizacion):
 	return '''
             <html>
             <head>
@@ -15,9 +15,9 @@ def cargarweb(jsonLocalizacion):
               </style>
             </head>
             <body>
-			<img id = "titulo" src="titulo.png"  style="position:relative; left: 23%; width: 50%; height: 50%;" >
+			  <img id = "titulo" src="titulo.png"  style="position:relative; left: 23%; width: 50%; height: 50%;" >
               <!-- this goes in the <body> -->
-              <div id="map"></div>
+              <div id="map" style="position:absolute; top: 50%; left: 23%;width: 50%; height: 40%;"></div>
               <script>
                 // Load the tile images from OpenStreetMap
               var mytiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -50,3 +50,31 @@ def cargarweb(jsonLocalizacion):
             </body>
             </html>
         '''
+
+def cargarweb():
+	return '''
+		<!DOCTYPE html>
+		<html lang="es">
+  		<head>
+      		<meta charset="utf-8" />
+      		<title>Twitter Analylics</title>
+      		<link rel="stylesheet" href="estilo.css" type="text/css"/>
+      		<script>
+    			function enviar_formulario(){
+         			document.form.submit()
+         			document.form.style.visibility = "hidden";
+         			document.getElementById('cargar').style.visibility = "visible";
+    			}
+  			</script>
+  		</head>
+  		<body>
+    		<img id = "titulo" src="titulo.png"  style="position:relative; left: 23%; width: 50%; height: 50%;" >
+    		<form name = "form" action = "/hashtag" method="post" style="position: absolute; left: 28%; top: 60%">
+          	Hashtag: <input id = "hastag" name = "hashtag" type = "text" />
+          	Tiempo (en segundos):   <input id = "tiempo" name = "tiempo" type = "text" />
+          	<a class="myButton" href="javascript:enviar_formulario()" >E N V I A R</a>
+    		</form>
+    		<img id = "cargar" src="carga.gif"  style="position:absolute; left: 45%; top: 50%; width: 100px; height: 100px; visibility: hidden;" >
+  		</body>
+		</html>
+    '''

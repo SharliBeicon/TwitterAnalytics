@@ -1,7 +1,6 @@
 body{
 	font-family:impact;
-	background-color: #2ca6d2;
-	color: white;
+	background-color: #00b6f1;
 }
 .myButton {
 	-moz-box-shadow:inset 0px 0px 15px 3px #2ca6d2;
@@ -41,3 +40,7 @@ body{
 	position:relative;
 	top:1px;
 }
+
+.precarga {
+    background:transparent url(carga.gif) center no-repeat;
+ }

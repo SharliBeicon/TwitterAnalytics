@@ -1,3 +1,4 @@
+import os
 import time
 import tweepy
 import json
@@ -48,6 +49,7 @@ def procesarTweets(archivo):
         fout.write(json.dumps(geo_data, indent=4))
         f.close()
     MyDropbox().upload('subidas/geo_data_'+archivo[1:len(archivo)])
+    os.system('rm subidas/geo_data_'+archivo[1:len(archivo)])
 #Clase recolectora de datos de Twitter.
 class MyListener(tweepy.StreamListener):
     def __init__(self, archivo, time_limit):

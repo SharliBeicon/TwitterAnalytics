@@ -18,7 +18,7 @@ def hashtag(mensaje, tiempo):
 
     MyDropbox().upload(archivo)
     os.system('rm '+archivo)
-    return 'holi'
+    return 'Hashtag obtenido.'
 
 @app.task(no_ack=True)
 def procesar(mensaje):
@@ -30,4 +30,4 @@ def procesar(mensaje):
     MyDropbox().download(archivo, ruta)
     procesarTweets(archivo)
 
-    return 'bien'
+    return 'json procesado.'

@@ -1,4 +1,4 @@
-from web import cargarweb
+from web import *
 import tasks
 import DropboxUpload
 from DropboxUpload import *
@@ -23,49 +23,23 @@ def json(filepath):
 
 @get('/hashtag')
 def operacion():
-    return '''
-	<!DOCTYPE html>
-	<html lang="es">
-	    <head>
-	        <meta charset="utf-8" />
-	        <title>Twitter Analylics</title>
-	        <link rel="stylesheet" href="estilo.css" type="text/css"/>
-	        <script>
-				function enviar_formulario(){
-   					document.form.submit()
-				}
-			</script>
-	    </head>
-	    <body>
-	    <img id = "titulo" src="titulo.png"  style="position:relative; left: 23%; width: 50%; height: 50%;" >
-		    <form name = "form" action = "/hashtag" method="post" style="position: absolute; left: 28%; top: 60%">
-	            Hashtag: <input id = "hastag" name = "hashtag" type = "text" />
-	            Tiempo (en segundos):   <input id = "tiempo" name = "tiempo" type = "text" />
-	            <a class="myButton" href="javascript:enviar_formulario()" >E N V I A R</a>
-        	</form>
-	    </body>
-	</html>
-    '''
-
-@get('/<filename>')
-def stylesheets(filename):
-    return static_file(filename, root='./')
+    return cargarweb()
 
 @post('/hashtag')
 def do_operacion():
     hashtag = request.forms.get("hashtag")
     tiempo = request.forms.get("tiempo")
     result = tasks.hashtag.delay(hashtag, float(tiempo))
-    holi = result.get()
+    res1 = result.get()
     result2 = tasks.procesar.delay(hashtag)
-    tuits = result2.get()
+    res2 = result2.get()
 
     if result2.successful():
         jsonLocalizacion = 'geo_data_'+hashtag[1:len(hashtag)]+'.json'
         MyDropbox().downloadLocation(jsonLocalizacion, '/subidas/'+jsonLocalizacion)
 
-        return cargarweb(jsonLocalizacion)
+        return cargarwebmapa(jsonLocalizacion)
     else:
-        print ("<p>[*] La shet</p>")
+        print ("Imposible cargar el mapa.")
 
 run(host='localhost', port=8080)
