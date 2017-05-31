@@ -9,10 +9,10 @@ from tweepy import Stream
 from tweepy.streaming import StreamListener
 
 #Asignacion de las claves para la API de Twitter
-consumer_key = 'kRNH81VeTyDeCHo6v5x2EWbzm'
-consumer_secret = 'EHp5PUIqC6CXXEoofez5CDaNIIsBCrcISYCd7Sk4VDwunahUQ4'
-access_token = '243348295-R1plXZdp6n1PjqnZYhFinhwVHmj76zJqSuqVS7IT'
-access_secret = '4UEkdO0i984kFn2n7bgnsNuPybJeFB0fctqqf7mzv5PeE'
+consumer_key = 'xxxxxxxxxxxxxxxxxxx'
+consumer_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+access_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+access_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)

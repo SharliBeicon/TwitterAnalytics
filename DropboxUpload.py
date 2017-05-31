@@ -1,7 +1,7 @@
 import dropbox
 import tempfile
 
-token = "m_VO84q7mPgAAAAAAAAITTsQfJiC7sFhgFrrVqp1y6a6xoyfO-NGrypTEJ_FxGAg"
+token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 dbx = dropbox.Dropbox(token)
 
 class MyDropbox():
